@@ -4,21 +4,24 @@ const translations = {
         "mode-pdf": "PDF para Word", "mode-img": "Imagem para PDF",
         "drop-h3": "Selecione o arquivo ou arraste aqui", "drop-p": "Arquivos suportados: .pdf",
         "btn-main": "Escolher Arquivo", "footer-span": "PROCESSAMENTO LOCAL SEGURO",
-        "support-pdf": "Arquivos suportados: .pdf", "support-img": "Arquivos suportados: .jpg, .png"
+        "support-pdf": "Arquivos suportados: .pdf", "support-img": "Arquivos suportados: .jpg, .png",
+        "btn-convert": "Converter Agora"
     },
     en: {
         "header-p": "The fastest way to safely transform your documents.",
         "mode-pdf": "PDF to Word", "mode-img": "Image to PDF",
         "drop-h3": "Select file or drag here", "drop-p": "Supported files: .pdf",
         "btn-main": "Choose File", "footer-span": "SECURE LOCAL PROCESSING",
-        "support-pdf": "Supported files: .pdf", "support-img": "Supported files: .jpg, .png"
+        "support-pdf": "Supported files: .pdf", "support-img": "Supported files: .jpg, .png",
+        "btn-convert": "Convert Now"
     },
     es: {
         "header-p": "La forma más rápida de transformar sus documentos de forma segura.",
         "mode-pdf": "PDF a Word", "mode-img": "Imagen a PDF",
         "drop-h3": "Seleccione el archivo o arrastre aquí", "drop-p": "Archivos soportados: .pdf",
         "btn-main": "Elegir Archivo", "footer-span": "PROCESAMIENTO LOCAL SEGURO",
-        "support-pdf": "Archivos soportados: .pdf", "support-img": "Archivos soportados: .jpg, .png"
+        "support-pdf": "Archivos soportados: .pdf", "support-img": "Archivos soportados: .jpg, .png",
+        "btn-convert": "Convertir Ahora"
     }
 };
 
@@ -31,12 +34,13 @@ function changeLanguage(lang) {
         if (translations[lang][key]) el.innerText = translations[lang][key];
     });
     
-    // Atualiza o texto de suporte baseado no modo atual
+    // Atualiza textos de suporte
     const supportKey = currentMode === 'pdf' ? 'support-pdf' : 'support-img';
     document.getElementById('subText').innerText = translations[lang][supportKey];
     
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('btn-' + lang).classList.add('active');
+    const activeBtn = document.getElementById('btn-' + lang);
+    if(activeBtn) activeBtn.classList.add('active');
 }
 
 function switchMode(mode) {
@@ -54,11 +58,11 @@ function switchMode(mode) {
         fileInput.accept = "image/*";
     }
     
-    // Atualiza o texto dinamicamente
     document.getElementById('subText').innerText = translations[lang][mode === 'pdf' ? 'support-pdf' : 'support-img'];
+    document.getElementById('mainText').innerText = translations[lang]['drop-h3'];
+    document.querySelector('.btn-main').innerText = translations[lang]['btn-main'];
 }
 
-// Lógica de Carregamento de Arquivo
 window.onload = () => {
     const saved = localStorage.getItem('prefLang') || 'pt';
     changeLanguage(saved);
@@ -66,19 +70,30 @@ window.onload = () => {
     const fileInput = document.getElementById('fileInput');
     const dropZone = document.querySelector('.drop-zone');
     const btnMain = document.querySelector('.btn-main');
+    const mainText = document.getElementById('mainText');
 
-    // Ao clicar na zona ou no botão, abre o seletor
+    // Forçar abertura do seletor
     [dropZone, btnMain].forEach(el => {
-        el.addEventListener('click', () => fileInput.click());
+        el.onclick = (e) => {
+            e.preventDefault();
+            fileInput.click();
+        };
     });
 
-    // Quando o arquivo for selecionado
-    fileInput.onchange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            alert("Arquivo carregado: " + file.name);
-            // Aqui você chamará sua função de conversão
-            console.log("Arquivo pronto para converter:", file);
+    // Detectar quando o arquivo entra no site
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const fileName = this.files[0].name;
+            const lang = localStorage.getItem('prefLang') || 'pt';
+            
+            // FEEDBACK VISUAL: Mostra o nome do arquivo no card
+            mainText.innerText = "Arquivo: " + fileName;
+            mainText.style.color = "#00d2ff"; // Fica azul neon
+            
+            // Muda o texto do botão para indicar que está pronto
+            btnMain.innerText = translations[lang]['btn-convert'];
+            
+            console.log("Arquivo carregado com sucesso:", fileName);
         }
-    };
+    });
 };
