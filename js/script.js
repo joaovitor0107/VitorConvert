@@ -1,96 +1,84 @@
 const translations = {
     pt: {
-        "page-title": "VitorConvert | Converter PDF para Word e Imagem para PDF Grátis",
         "header-p": "O jeito mais rápido de transformar seus documentos com segurança.",
-        "mode-pdf": "PDF para Word",
-        "mode-img": "Imagem para PDF",
-        "drop-h3": "Selecione o arquivo ou arraste aqui",
-        "drop-p": "Arquivos suportados: .pdf",
-        "wait-h4": "Seu arquivo está sendo processado!",
-        "wait-p1": "O download iniciará em",
-        "wait-p2": "segundos...",
-        "btn-main": "Escolher Arquivo",
-        "ad-h4": "Publicidade",
-        "ad-p": "Ajude a manter o",
-        "ad-span": "Anúncio Disponível",
-        "footer-span": "PROCESSAMENTO LOCAL SEGURO",
-        "status-ready": "Arquivo Pronto!",
-        "status-processing": "Processando...",
-        "status-convert": "Converter Agora",
-        "support-img": "Arquivos suportados: .jpg, .png",
-        "support-pdf": "Arquivos suportados: .pdf"
+        "mode-pdf": "PDF para Word", "mode-img": "Imagem para PDF",
+        "drop-h3": "Selecione o arquivo ou arraste aqui", "drop-p": "Arquivos suportados: .pdf",
+        "btn-main": "Escolher Arquivo", "footer-span": "PROCESSAMENTO LOCAL SEGURO",
+        "support-pdf": "Arquivos suportados: .pdf", "support-img": "Arquivos suportados: .jpg, .png"
     },
     en: {
-        "page-title": "VitorConvert | Convert PDF to Word and Image to PDF Free",
-        "header-p": "The fastest way to transform your documents securely.",
-        "mode-pdf": "PDF to Word",
-        "mode-img": "Image to PDF",
-        "drop-h3": "Select file or drag here",
-        "drop-p": "Supported files: .pdf",
-        "wait-h4": "Your file is being processed!",
-        "wait-p1": "Download will start in",
-        "wait-p2": "seconds...",
-        "btn-main": "Choose File",
-        "ad-h4": "Advertisement",
-        "ad-p": "Help maintain",
-        "ad-span": "Ad Available",
-        "footer-span": "SECURE LOCAL PROCESSING",
-        "status-ready": "File Ready!",
-        "status-processing": "Processing...",
-        "status-convert": "Convert Now",
-        "support-img": "Supported files: .jpg, .png",
-        "support-pdf": "Supported files: .pdf"
+        "header-p": "The fastest way to safely transform your documents.",
+        "mode-pdf": "PDF to Word", "mode-img": "Image to PDF",
+        "drop-h3": "Select file or drag here", "drop-p": "Supported files: .pdf",
+        "btn-main": "Choose File", "footer-span": "SECURE LOCAL PROCESSING",
+        "support-pdf": "Supported files: .pdf", "support-img": "Supported files: .jpg, .png"
     },
     es: {
-        "page-title": "VitorConvert | Convertir PDF a Word e Imagen a PDF Gratis",
         "header-p": "La forma más rápida de transformar sus documentos de forma segura.",
-        "mode-pdf": "PDF a Word",
-        "mode-img": "Imagen a PDF",
-        "drop-h3": "Seleccione el archivo o arrastre aquí",
-        "drop-p": "Archivos soportados: .pdf",
-        "wait-h4": "¡Su archivo está siendo procesado!",
-        "wait-p1": "La descarga comenzará en",
-        "wait-p2": "segundos...",
-        "btn-main": "Elegir Archivo",
-        "ad-h4": "Publicidad",
-        "ad-p": "Ayude a mantener",
-        "ad-span": "Anuncio Disponible",
-        "footer-span": "PROCESAMIENTO LOCAL SEGURO",
-        "status-ready": "¡Archivo Listo!",
-        "status-processing": "Procesando...",
-        "status-convert": "Convertir Ahora",
-        "support-img": "Archivos soportados: .jpg, .png",
-        "support-pdf": "Archivos soportados: .pdf"
+        "mode-pdf": "PDF a Word", "mode-img": "Imagen a PDF",
+        "drop-h3": "Seleccione el archivo o arrastre aquí", "drop-p": "Archivos soportados: .pdf",
+        "btn-main": "Elegir Archivo", "footer-span": "PROCESAMIENTO LOCAL SEGURO",
+        "support-pdf": "Archivos soportados: .pdf", "support-img": "Archivos soportados: .jpg, .png"
     }
 };
 
+let currentMode = 'pdf';
+
 function changeLanguage(lang) {
-    try {
-        localStorage.setItem('preferredLang', lang);
-        
-        // Título da página
-        const titleTag = document.getElementById('page-title');
-        if(titleTag) titleTag.innerText = translations[lang]["page-title"];
-
-        // Elementos com data-i18n
-        document.querySelectorAll('[data-i18n]').forEach(element => {
-            const key = element.getAttribute('data-i18n');
-            if (translations[lang] && translations[lang][key]) {
-                element.innerText = translations[lang][key];
-            }
-        });
-
-        // Atualizar botões de idioma (visual)
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.innerText.toLowerCase() === lang) btn.classList.add('active');
-        });
-    } catch (e) {
-        console.error("Erro ao trocar idioma:", e);
-    }
+    localStorage.setItem('prefLang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.innerText = translations[lang][key];
+    });
+    
+    // Atualiza o texto de suporte baseado no modo atual
+    const supportKey = currentMode === 'pdf' ? 'support-pdf' : 'support-img';
+    document.getElementById('subText').innerText = translations[lang][supportKey];
+    
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('btn-' + lang).classList.add('active');
 }
 
-window.addEventListener('load', () => {
-    const savedLang = localStorage.getItem('preferredLang') || 'pt';
-    changeLanguage(savedLang);
-});
+function switchMode(mode) {
+    currentMode = mode;
+    const lang = localStorage.getItem('prefLang') || 'pt';
+    const fileInput = document.getElementById('fileInput');
+    
+    document.querySelectorAll('.btn-mode').forEach(btn => btn.classList.remove('active'));
+    
+    if(mode === 'pdf') {
+        document.getElementById('mode-pdf').classList.add('active');
+        fileInput.accept = ".pdf";
+    } else {
+        document.getElementById('mode-img').classList.add('active');
+        fileInput.accept = "image/*";
+    }
+    
+    // Atualiza o texto dinamicamente
+    document.getElementById('subText').innerText = translations[lang][mode === 'pdf' ? 'support-pdf' : 'support-img'];
+}
+
+// Lógica de Carregamento de Arquivo
+window.onload = () => {
+    const saved = localStorage.getItem('prefLang') || 'pt';
+    changeLanguage(saved);
+
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.querySelector('.drop-zone');
+    const btnMain = document.querySelector('.btn-main');
+
+    // Ao clicar na zona ou no botão, abre o seletor
+    [dropZone, btnMain].forEach(el => {
+        el.addEventListener('click', () => fileInput.click());
+    });
+
+    // Quando o arquivo for selecionado
+    fileInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            alert("Arquivo carregado: " + file.name);
+            // Aqui você chamará sua função de conversão
+            console.log("Arquivo pronto para converter:", file);
+        }
+    };
+};
