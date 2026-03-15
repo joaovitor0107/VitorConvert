@@ -6,8 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitorConvert | Converter PDF para Word e Imagem para PDF</title>
-    <meta name="description" content="Converta documentos de forma rápida e segura. Processamento 100% local e privado.">
-    <meta name="keywords" content="converter pdf, pdf para word, imagem para pdf, vitorconvert, conversor de documentos grátis">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -20,7 +18,7 @@
             <p>O jeito mais rápido de transformar seus documentos com segurança.</p>
         </header>
 
-        <main class="card" id="mainCard">
+        <main class="card">
             <div class="mode-selector">
                 <button class="btn-mode active" id="btnPdfToWord">PDF para Word</button>
                 <button class="btn-mode" id="btnImgToPdf">Imagem para PDF</button>
@@ -32,11 +30,8 @@
             </div>
             
             <div id="waitSection" style="display: none; margin-bottom: 20px;">
-                <h4 style="color: #00a8ff;">Seu arquivo está sendo processado!</h4>
-                <p>O download iniciará em <span id="timer">5</span> segundos...</p>
-                <div class="ad-timer-slot">
-                    <span>Publicidade</span>
-                </div>
+                <h4 style="color: #00a8ff;">Processando seu arquivo...</h4>
+                <p>O download iniciará em <span id="timer">5</span> segundos.</p>
             </div>
 
             <div class="progress-container" id="progressWrap" style="display: none;">
@@ -51,7 +46,7 @@
             <div class="ad-card">
                 <div class="ad-content">
                     <h4>Publicidade</h4>
-                    <p>Ajude a manter o <span>VitorConvert</span> gratuito para todos.</p>
+                    <p>Ajude a manter o <span>VitorConvert</span> gratuito.</p>
                 </div>
                 <div class="ad-slot-wrapper">
                     <div class="ad-placeholder">Anúncio Disponível</div>
