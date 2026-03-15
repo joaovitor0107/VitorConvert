@@ -5,81 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitorConvert | PDF & Image Converter</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-SEU_ID" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-SUBSTITUA_PELO_TEU_ID" crossorigin="anonymous"></script>
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            background: radial-gradient(circle at top, #0d1e31 0%, #061424 100%);
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container { 
-            width: 100%; 
-            max-width: 500px; 
-            position: relative;
-            z-index: 10;
-        }
-
-        header { text-align: center; margin-bottom: 30px; }
-        .logo { font-size: 2.5rem; font-weight: 800; }
-        .logo span { background: #00d2ff; color: #061424; padding: 2px 10px; border-radius: 8px; margin-left: 8px; }
-
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            position: relative;
-            z-index: 20; /* Garante que o card esteja acima do fundo */
-        }
-
-        .ad-space { margin-bottom: 20px; min-height: 90px; }
-
-        .mode-selector { display: flex; gap: 10px; margin-bottom: 25px; }
-        .btn-mode {
-            flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
-            color: #fff; padding: 12px; border-radius: 12px; cursor: pointer;
-        }
-        .btn-mode.active { background: #00d2ff22; border-color: #00d2ff; color: #00d2ff; }
-
-        .drop-zone {
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px 20px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            position: relative;
-            z-index: 30; /* Garante que a zona de drop seja clicável */
-        }
-
-        .btn-main {
-            background: #00d2ff;
-            color: #061424;
-            border: none;
-            width: 100%;
-            padding: 18px;
-            border-radius: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 30;
-        }
-
-        footer { margin-top: 30px; text-align: center; font-size: 0.7rem; opacity: 0.5; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -89,8 +20,13 @@
         </header>
 
         <main class="card">
-            <div class="ad-space">
-                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-SEU_ID" data-ad-slot="SLOT_ID" data-ad-format="auto"></ins>
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-SUBSTITUA_PELO_TEU_ID"
+                     data-ad-slot="SUBSTITUA_PELO_TEU_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             </div>
 
@@ -99,14 +35,24 @@
                 <button class="btn-mode" id="mode-img" onclick="switchMode('img')">Imagem para PDF</button>
             </div>
 
-            <div class="drop-zone" onclick="document.getElementById('fileInput').click()">
+            <div class="drop-zone" onclick="triggerInput()">
                 <h3 id="mainText">Selecione o arquivo ou arraste aqui</h3>
-                <p id="subText" style="opacity: 0.6; font-size: 0.8rem; margin-top: 10px;">Arquivos suportados: .pdf</p>
+                <p id="subText">Arquivos suportados: .pdf</p>
             </div>
             
             <input type="file" id="fileInput" style="display: none;" onchange="handleFile(this.files[0])">
             
-            <button class="btn-main" id="actionBtn" onclick="triggerAction()">Escolher Arquivo</button>
+            <button class="btn-main" id="actionBtn" onclick="triggerInput()">Escolher Arquivo</button>
+
+            <div class="ad-container" style="margin-top: 20px;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-SUBSTITUA_PELO_TEU_ID"
+                     data-ad-slot="SUBSTITUA_PELO_TEU_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
         </main>
 
         <footer>
@@ -114,76 +60,6 @@
         </footer>
     </div>
 
-    <script>
-        let currentMode = 'pdf';
-        let selectedFile = null;
-        let isWaiting = false;
-
-        function triggerAction() {
-            if (isWaiting) return;
-            if (!selectedFile) {
-                document.getElementById('fileInput').click();
-            } else {
-                startCounter();
-            }
-        }
-
-        function handleFile(file) {
-            if (!file) return;
-            selectedFile = file;
-            document.getElementById('mainText').innerText = "Arquivo: " + file.name;
-            document.getElementById('mainText').style.color = "#00d2ff";
-            document.getElementById('actionBtn').innerText = "Converter Agora";
-        }
-
-        function startCounter() {
-            isWaiting = true;
-            let count = 5;
-            const btn = document.getElementById('actionBtn');
-            const timer = setInterval(() => {
-                btn.innerText = `Aguarde ${count}s...`;
-                count--;
-                if (count < 0) {
-                    clearInterval(timer);
-                    btn.innerText = "Convertendo...";
-                    if (currentMode === 'img') processImg();
-                    else { alert("PDF para Word em breve"); resetBtn(); }
-                }
-            }, 1000);
-        }
-
-        async function processImg() {
-            try {
-                const { PDFDocument } = PDFLib;
-                const pdfDoc = await PDFDocument.create();
-                const imageBytes = await selectedFile.arrayBuffer();
-                const image = selectedFile.type === "image/png" ? await pdfDoc.embedPng(imageBytes) : await pdfDoc.embedJpg(imageBytes);
-                const page = pdfDoc.addPage([image.width, image.height]);
-                page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
-                const pdfBytes = await pdfDoc.save();
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(new Blob([pdfBytes], { type: "application/pdf" }));
-                link.download = "vitorconvert.pdf";
-                link.click();
-            } catch (e) { alert("Erro ao converter."); }
-            resetBtn();
-        }
-
-        function resetBtn() {
-            isWaiting = false;
-            document.getElementById('actionBtn').innerText = "Converter Agora";
-        }
-
-        function switchMode(mode) {
-            currentMode = mode;
-            selectedFile = null;
-            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active'));
-            document.getElementById('mode-' + mode).classList.add('active');
-            document.getElementById('subText').innerText = mode === 'pdf' ? "Arquivos suportados: .pdf" : "Arquivos suportados: .jpg, .png";
-            document.getElementById('mainText').innerText = "Selecione o arquivo ou arraste aqui";
-            document.getElementById('mainText').style.color = "#fff";
-            document.getElementById('actionBtn').innerText = "Escolher Arquivo";
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
