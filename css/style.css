@@ -1,91 +1,106 @@
-/* Reset Básico */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background: #061424; /* Azul escuro da referência */
+    /* Fundo azul profundo da imagem */
+    background: #061424; 
     color: #fff;
     font-family: 'Inter', sans-serif;
     display: flex;
-    justify-content: center;
+    justify-content: center; 
     align-items: center;
     min-height: 100vh;
-    padding: 20px 0;
 }
 
 .container { width: 100%; max-width: 600px; text-align: center; padding: 20px; }
 
-/* Logo e Header */
-.logo { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; }
+/* Logo conforme a imagem 2 */
+.logo { font-size: 3.5rem; font-weight: 800; margin-bottom: 5px; color: #fff; }
 .logo span { 
-    background: #00d2ff; 
-    color: #061424; 
+    background: #00d2ff; /* Ciano vibrante */
     padding: 2px 12px; 
     border-radius: 10px; 
+    margin-left: 5px; 
     font-size: 1.8rem; 
-    margin-left: 8px;
-    vertical-align: middle;
+    color: #061424; /* Texto escuro dentro do destaque */
 }
 
-header p { color: rgba(255,255,255,0.7); margin-bottom: 30px; font-size: 0.9rem; }
+header p { color: rgba(255, 255, 255, 0.8); margin-bottom: 25px; font-size: 0.95rem; }
 
-/* Card de Conversão */
 .card {
+    /* Efeito de vidro mais escuro */
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 30px; 
     padding: 40px;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
 }
 
 .mode-selector { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+
 .btn-mode {
     background: transparent; 
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff; 
-    padding: 12px 20px; 
+    padding: 12px 25px; 
     border-radius: 12px; 
-    cursor: pointer; font-weight: 600; transition: 0.3s;
+    cursor: pointer; 
+    font-weight: 600; 
+    transition: 0.3s;
 }
+
+/* Botão ativo com borda branca */
 .btn-mode.active { background: #fff; color: #061424; border-color: #fff; }
 
 .drop-zone {
     border: 2px dashed rgba(255, 255, 255, 0.15);
-    border-radius: 20px; padding: 50px 20px; margin-bottom: 30px;
+    border-radius: 20px; 
+    padding: 50px 20px; 
+    margin-bottom: 30px; 
+    background: rgba(0, 0, 0, 0.15);
 }
 
+.drop-zone h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.drop-zone p { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+/* Botão principal ciano */
 .btn-main {
-    background: #00d2ff; color: #061424; border: none;
-    width: 100%; padding: 18px; border-radius: 15px;
-    font-weight: 700; font-size: 1.1rem; cursor: pointer;
+    background: #00d2ff; 
+    color: #061424; 
+    border: none;
+    width: 100%; 
+    padding: 18px; 
+    border-radius: 15px;
+    font-weight: 700; 
+    font-size: 1rem; 
+    cursor: pointer;
     transition: 0.2s;
 }
 
-/* Áreas de Propaganda */
-.monetization-box { margin-top: 20px; }
+.btn-main:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-/* Propaganda 1: Estilo Card */
+/* Seção de anúncios ajustada para o layout da imagem */
+.monetization-box { margin-top: 40px; }
 .ad-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.02); 
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 15px; padding: 20px;
-    display: flex; justify-content: space-between; align-items: center; text-align: left;
-}
-.ad-info h4 { font-size: 0.8rem; color: #00d2ff; margin-bottom: 4px; }
-.ad-info p { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
-.ad-slot { background: #112233; padding: 8px 15px; border-radius: 8px; font-size: 0.75rem; }
-
-/* Propaganda 2: Estilo Banner Largo */
-.ad-banner {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 15px; padding: 15px;
-}
-.ad-label { font-size: 0.7rem; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-bottom: 10px; }
-.ad-slot-large {
-    background: rgba(0,0,0,0.2);
-    border: 1px dashed rgba(255,255,255,0.05);
-    border-radius: 10px; padding: 30px;
-    color: rgba(255,255,255,0.3); font-size: 0.8rem;
+    border-radius: 15px; 
+    padding: 15px 25px; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    text-align: left;
 }
 
-footer { padding: 40px 0; font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 2px; }
+.ad-info h4 { font-size: 0.85rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px; }
+.ad-info p { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+
+.ad-slot { 
+    background: #112233; 
+    padding: 10px 20px;
+    border-radius: 8px; 
+    font-size: 0.8rem; 
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+footer { margin-top: 40px; font-size: 0.7rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; }
