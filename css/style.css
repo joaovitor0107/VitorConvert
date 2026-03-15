@@ -1,82 +1,67 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background: radial-gradient(circle at center, #112d4d 0%, #0d1b2a 100%);
-    color: rgba(255, 255, 255, 0.7);
+    background: radial-gradient(circle at center, #1a3a5a 0%, #0d1b2a 100%);
+    color: #fff;
     font-family: 'Inter', sans-serif;
     display: flex;
     justify-content: center; align-items: center;
     min-height: 100vh;
 }
 
-.container { width: 100%; max-width: 600px; text-align: center; padding: 20px; display: flex; flex-direction: column; gap: 30px; }
+.container { width: 100%; max-width: 600px; text-align: center; padding: 20px; }
 
-.header p { font-size: 0.9rem; margin-top: 10px; }
-
-.logo { font-size: 3.5rem; font-weight: 800; color: #a1aeb9; }
-.logo span { color: #00a8ff; font-size: 3.5rem; } /* Azul claro igual ao botão */
-
-.main-content { position: relative; }
+.logo { font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
+.logo span { background: #00a8ff; padding: 2px 10px; border-radius: 8px; margin-left: 10px; font-size: 1.5rem; vertical-align: middle; }
 
 .card {
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
-    padding: 60px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px; padding: 50px;
     box-shadow: 0 25px 50px rgba(0,0,0,0.3);
 }
 
-/* Nova borda dashed azul ao redor do card */
-.card-dashed {
-    border: 1px dashed #334d61;
+.mode-selector { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+.btn-mode {
+    background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.3s;
 }
+.btn-mode.active { background: #fff; color: #000; }
 
 .drop-zone {
-    margin-bottom: 25px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 20px; padding: 60px 20px; margin-bottom: 30px; cursor: pointer;
 }
 
-.drop-zone h3 { font-size: 1.5rem; color: #fff; margin-bottom: 8px; font-weight: 700; }
-.drop-zone p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); }
-
-.action-btn-wrapper { margin-top: 15px; }
+.ad-timer-slot {
+    background: rgba(0,0,0,0.4); border-radius: 15px;
+    height: 100px; margin-top: 15px; display: flex;
+    justify-content: center; align-items: center; color: rgba(255,255,255,0.2);
+    border: 1px dashed #00a8ff;
+}
 
 .btn-main {
-    background: #00a8ff; /* Azul da imagem */
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 22px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
-    transition: 0.3s ease;
+    background: #00a8ff; color: white; border: none;
+    width: 100%; padding: 20px; border-radius: 15px;
+    font-weight: 700; font-size: 1.1rem; cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 168, 255, 0.4);
 }
 
-.btn-main:hover { background: #0088cc; }
+.monetization-box { margin-top: 20px; }
+.ad-card {
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px; padding: 20px; display: flex;
+    justify-content: space-between; align-items: center; text-align: left;
+}
+.ad-content h4 { font-size: 0.9rem; color: #00a8ff; margin-bottom: 5px; }
+.ad-content p { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
 
-.progress-container { display: none; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; margin-top: 15px; overflow: hidden; }
+.ad-slot-wrapper {
+    width: 180px; height: 50px; background: rgba(0,0,0,0.3);
+    border-radius: 8px; display: flex; justify-content: center; align-items: center;
+}
+
+.progress-container { display: none; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
 .progress-bar { background: #00a8ff; width: 0%; height: 100%; transition: 0.3s; }
 
-.monetization-box { margin-bottom: 20px; }
-.ad-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px dashed #334d61;
-    border-radius: 10px;
-    padding: 20px;
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.8rem;
-    font-weight: 600;
-    min-height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ad-content-fallback { display: block; }
-.ad-card ins.adsbygoogle { display: none !important; }
-/* Quando o anúncio carregar, remove o fallback visual */
-.ad-card ins[data-ad-status="filled"] + .ad-content-fallback { display: none !important; }
-.ad-card ins[data-ad-status="filled"] { display: block !important; }
-
-.copyright { font-size: 0.7rem; color: rgba(255,255,255,0.2); }
+footer { margin-top: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.3); }
