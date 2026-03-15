@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8833464588728605" crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitorConvert | Oficial</title>
@@ -23,4 +24,44 @@
             </div>
 
             <div class="drop-zone" id="dropZone">
-                <h3 id="mainText">Selecione o arquivo ou arraste aqui
+                <h3 id="mainText">Selecione o arquivo ou arraste aqui</h3>
+                <p id="subText">Arquivos suportados: .pdf</p>
+            </div>
+            
+            <div id="waitSection" style="display: none; margin-bottom: 20px;">
+                <h4 style="color: #00a8ff;">Seu arquivo está pronto!</h4>
+                <p>O download iniciará em <span id="timer">5</span> segundos...</p>
+                <div class="ad-timer-slot">
+                    <span>Anúncio Premium</span>
+                </div>
+            </div>
+
+            <div class="progress-container" id="progressWrap">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <input type="file" id="fileInput" hidden>
+            <button class="btn-main" id="convertBtn">Escolher Arquivo</button>
+        </main>
+
+        <section class="monetization-box">
+            <div class="ad-card">
+                <div class="ad-content">
+                    <h4>Publicidade</h4>
+                    <p>Ajude a manter o <span>VitorConvert</span>.</p>
+                </div>
+                <div class="ad-slot-wrapper">
+                    <div class="ad-placeholder">Anúncio Disponível</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            © 2026 VITORCONVERT • PROCESSAMENTO LOCAL SEGURO
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
