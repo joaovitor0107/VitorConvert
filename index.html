@@ -3,50 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VitorConvert | PDF & Image Converter</title>
+    <title>VitorConvert | Oficial</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <div class="container">
         <header>
-            <div class="logo">Vitor <span>Convert</span></div>
+            <div class="logo">Vitor<span>Convert</span></div>
             <p>O jeito mais rápido de transformar seus documentos.</p>
         </header>
 
-        <main class="card">
+        <main class="card" id="mainCard">
             <div class="mode-selector">
-                <button class="btn-mode" id="mode-pdf" onclick="switchMode('pdf')">PDF para Word</button>
-                <button class="btn-mode active" id="mode-img" onclick="switchMode('img')">Imagem para PDF</button>
+                <button class="btn-mode active" id="btnPdfToWord">PDF para Word</button>
+                <button class="btn-mode" id="btnImgToPdf">Imagem para PDF</button>
             </div>
 
-            <div class="drop-zone" onclick="triggerInput()">
+            <div class="drop-zone" id="dropZone">
                 <h3 id="mainText">Selecione o arquivo ou arraste aqui</h3>
-                <p id="subText">Arquivos suportados: .jpg, .png</p>
+                <p id="subText">Arquivos suportados: .pdf</p>
             </div>
             
-            <input type="file" id="fileInput" style="display: none;" onchange="handleFile(this.files[0])">
-            
-            <button class="btn-main" id="actionBtn" onclick="triggerInput()">Escolher Arquivo</button>
+            <div id="waitSection" style="display: none; margin-bottom: 20px;">
+                <h4 style="color: #00a8ff;">Seu arquivo está pronto!</h4>
+                <p>O download iniciará em <span id="timer">5</span> segundos...</p>
+                <div class="ad-timer-slot">
+                    <span>Anúncio Premium</span>
+                </div>
+            </div>
+
+            <div class="progress-container" id="progressWrap">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <input type="file" id="fileInput" hidden>
+            <button class="btn-main" id="convertBtn">Escolher Arquivo</button>
         </main>
 
-        <section class="ad-footer">
-            <div class="ad-info">
-                <span>Publicidade</span>
-                <p>Ajude a manter o VitorConvert.</p>
-            </div>
-            <div class="ad-status">
-                Anúncio Disponível
+        <section class="monetization-box">
+            <div class="ad-card">
+                <div class="ad-content">
+                    <h4>Publicidade</h4>
+                    <p>Ajude a manter o <span>VitorConvert</span>.</p>
+                </div>
+                <div class="ad-slot-wrapper">
+                    <div class="ad-placeholder">Anúncio Disponível</div>
+                </div>
             </div>
         </section>
 
         <footer>
-            <p>© 2026 VITORCONVERT • PROCESSAMENTO LOCAL SEGURO</p>
+            © 2026 VITORCONVERT • PROCESSAMENTO LOCAL SEGURO
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
