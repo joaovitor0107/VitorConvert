@@ -1,69 +1,99 @@
-let currentMode = 'img';
-let selectedFile = null;
-let isWaiting = false;
+let currentMode = 'pdfToWord';
+const fileInput = document.getElementById('fileInput');
+const convertBtn = document.getElementById('convertBtn');
+const dropZone = document.getElementById('dropZone');
 
-function triggerInput() {
-    if (isWaiting) return;
-    if (!selectedFile) {
-        document.getElementById('fileInput').click();
-    } else {
-        startTimer();
+document.getElementById('btnPdfToWord').onclick = (e) => switchMode('pdfToWord', e.currentTarget);
+document.getElementById('btnImgToPdf').onclick = (e) => switchMode('imgToPdf', e.currentTarget);
+
+function switchMode(mode, btn) {
+    currentMode = mode;
+    document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    fileInput.accept = mode === 'pdfToWord' ? '.pdf' : 'image/jpeg, image/png';
+    document.getElementById('subText').innerText = "Arquivos suportados: " + (mode === 'pdfToWord' ? ".pdf" : ".jpg, .png");
+}
+
+dropZone.onclick = () => fileInput.click();
+
+fileInput.onchange = function() {
+    if (this.files[0]) {
+        document.getElementById('mainText').innerText = "Arquivo Pronto!";
+        document.getElementById('subText').innerText = this.files[0].name;
+        convertBtn.innerText = "Converter Agora";
     }
-}
+};
 
-function handleFile(file) {
-    if (!file) return;
-    selectedFile = file;
-    document.getElementById('mainText').innerText = "Arquivo: " + file.name;
-    document.getElementById('actionBtn').innerText = "Converter Agora";
-}
+convertBtn.onclick = async () => {
+    const file = fileInput.files[0];
+    if (!file) { fileInput.click(); return; }
 
-function startTimer() {
-    isWaiting = true;
-    let time = 5;
-    const btn = document.getElementById('actionBtn');
+    convertBtn.disabled = true;
+    convertBtn.innerText = "Processando...";
+    document.getElementById('progressWrap').style.display = "block";
+
+    try {
+        let fileData, fileName, fileType;
+
+        if (currentMode === 'imgToPdf') {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const imgData = e.target.result;
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                const image = file.type === 'image/png' ? await pdfDoc.embedPng(imgData) : await pdfDoc.embedJpg(imgData);
+                const page = pdfDoc.addPage([image.width, image.height]);
+                page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+                fileData = await pdfDoc.save();
+                fileName = file.name.split('.')[0] + '.pdf';
+                fileType = 'application/pdf';
+                startWaitSequence(fileData, fileName, fileType);
+            };
+            reader.readAsArrayBuffer(file);
+        } else {
+            // PDF para Word (Simulado)
+            fileData = new Blob(["Conteúdo extraído via VitorConvert"], {type: "application/msword"});
+            fileName = file.name.replace('.pdf', '.docx');
+            fileType = 'application/msword';
+            setTimeout(() => startWaitSequence(fileData, fileName, fileType), 1000);
+        }
+    } catch (err) {
+        alert("Erro: " + err.message);
+        location.reload();
+    }
+};
+
+function startWaitSequence(data, name, type) {
+    document.getElementById('dropZone').style.display = "none";
+    document.getElementById('progressWrap').style.display = "none";
+    document.getElementById('waitSection').style.display = "block";
+    convertBtn.style.display = "none";
+
+    let timeLeft = 5;
+    const timerElem = document.getElementById('timer');
     
-    const interval = setInterval(() => {
-        btn.innerText = `Aguarde ${time}s...`;
-        btn.style.opacity = "0.7";
-        time--;
-        
-        if (time < 0) {
-            clearInterval(interval);
-            btn.innerText = "Baixando...";
-            btn.style.opacity = "1";
-            if (currentMode === 'img') processImage();
-            else { alert("Modo PDF indisponível."); resetBtn(); }
+    // Opcional: Abre uma aba de anúncio no início da espera
+    // window.open('https://seu-link-de-anuncio.com', '_blank');
+
+    const countdown = setInterval(() => {
+        timeLeft--;
+        timerElem.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            download(data, name, type);
         }
     }, 1000);
 }
 
-async function processImage() {
-    try {
-        const { PDFDocument } = PDFLib;
-        const pdfDoc = await PDFDocument.create();
-        const bytes = await selectedFile.arrayBuffer();
-        const image = selectedFile.type.includes("png") ? await pdfDoc.embedPng(bytes) : await pdfDoc.embedJpg(bytes);
-        const page = pdfDoc.addPage([image.width, image.height]);
-        page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
-        const pdfBytes = await pdfDoc.save();
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(new Blob([pdfBytes], { type: "application/pdf" }));
-        link.download = "vitorconvert.pdf";
-        link.click();
-    } catch (e) { alert("Erro ao converter."); }
-    resetBtn();
-}
-
-function resetBtn() {
-    isWaiting = false;
-    document.getElementById('actionBtn').innerText = "Escolher Arquivo";
-}
-
-function switchMode(mode) {
-    if (isWaiting) return;
-    currentMode = mode;
-    document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active'));
-    document.getElementById('mode-' + mode).classList.add('active');
-    document.getElementById('subText').innerText = mode === 'img' ? "Arquivos suportados: .jpg, .png" : "Arquivos suportados: .pdf";
+function download(data, name, type) {
+    const blob = data instanceof Blob ? data : new Blob([data], {type: type});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.click();
+    
+    setTimeout(() => {
+        alert("Download Concluído!");
+        location.reload();
+    }, 1000);
 }
