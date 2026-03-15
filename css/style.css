@@ -1,28 +1,55 @@
-/* ... (seu código anterior permanece igual) ... */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* INTEGRAÇÃO GOOGLE ADS */
-ins.adsbygoogle {
-    background: transparent !important;
-    text-decoration: none !important;
-    display: block !important;
+body {
+    background: radial-gradient(circle at center, #1a3a5a 0%, #0d1b2a 100%);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center; align-items: center;
+    min-height: 100vh;
 }
 
-/* Remove bordas e fundos do slot quando o anúncio carregar */
-.ad-slot-wrapper:has(ins[data-ad-status="filled"]),
-.ad-timer-slot:has(ins[data-ad-status="filled"]) {
-    border: none !important;
-    background: transparent !important;
+.container { width: 100%; max-width: 600px; text-align: center; padding: 20px; }
+
+.logo { font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
+.logo span { background: #00a8ff; padding: 2px 10px; border-radius: 8px; margin-left: 10px; font-size: 1.5rem; vertical-align: middle; }
+
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px; padding: 50px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
 }
 
-/* Ajuste específico para o anúncio dentro do contador */
-.ad-timer-slot {
-    overflow: hidden;
-    position: relative;
-    min-height: 100px; /* Garante espaço para o anúncio */
+.mode-selector { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+.btn-mode {
+    background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.3s;
+}
+.btn-mode.active { background: #fff; color: #000; }
+
+.drop-zone {
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 20px; padding: 60px 20px; margin-bottom: 30px; cursor: pointer;
 }
 
-/* Garante que o progresso e textos fiquem legíveis sobre o gradiente */
-.ad-content span {
-    color: #00a8ff;
-    font-weight: bold;
+.btn-main {
+    background: #00a8ff; color: white; border: none;
+    width: 100%; padding: 20px; border-radius: 15px;
+    font-weight: 700; font-size: 1.1rem; cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 168, 255, 0.4);
 }
+
+.monetization-box { margin-top: 20px; }
+.ad-card {
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px; padding: 20px; display: flex;
+    justify-content: space-between; align-items: center; text-align: left;
+}
+
+.ad-slot-wrapper {
+    width: 180px; height: 50px; background: rgba(0,0,0,0.3);
+    border-radius: 8px; display: flex; justify-content: center; align-items: center;
+}
+
+footer { margin-top: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.3); }
