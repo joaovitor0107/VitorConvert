@@ -68,12 +68,16 @@ function startWaitSequence(data, name, type) {
     document.getElementById('waitSection').style.display = "block";
     convertBtn.style.display = "none";
 
+    // GATILHO PARA CARREGAR O ANÚNCIO ASSIM QUE A SEÇÃO APARECER
+    try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+        console.log("Ads ainda não carregados");
+    }
+
     let timeLeft = 5;
     const timerElem = document.getElementById('timer');
     
-    // Opcional: Abre uma aba de anúncio no início da espera
-    // window.open('https://seu-link-de-anuncio.com', '_blank');
-
     const countdown = setInterval(() => {
         timeLeft--;
         timerElem.innerText = timeLeft;
