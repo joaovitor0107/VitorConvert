@@ -1,23 +1,88 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* Reset e Base */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
-    /* Fundo azul profundo da imagem */
-    background: #061424; 
+    /* Fundo azul profundo com degradê radial para dar profundidade */
+    background: radial-gradient(circle at top, #0d1e31 0%, #061424 100%); 
     color: #fff;
     font-family: 'Inter', sans-serif;
     display: flex;
     justify-content: center; 
     align-items: center;
     min-height: 100vh;
+    padding: 20px;
 }
 
-/* --- SELETOR DE IDIOMAS (Adicionado) --- */
+.container {
+    width: 100%;
+    max-width: 550px;
+    position: relative;
+}
+
+/* --- SELETOR DE IDIOMAS --- */
 .lang-switcher {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 25px; /* Espaço entre idiomas e o logo */
 }
 
 .lang-btn {
-    background: rgba(255, 255, 255,
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #b0b0b0;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover, .lang-btn.active {
+    background: #00d2ff;
+    color: #061424;
+    border-color: #00d2ff;
+}
+
+/* --- HEADER / LOGO --- */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* O "Convert" dentro do retângulo azul */
+.logo span {
+    background: #00d2ff;
+    color: #061424;
+    padding: 2px 10px;
+    border-radius: 8px;
+    margin-left: 8px;
+    font-size: 2.2rem;
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* --- CARD CENTRAL --- */
+.card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    padding: 40px;
+    backdrop-filter: blur(12px); /* Efeito
