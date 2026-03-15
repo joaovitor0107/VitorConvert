@@ -1,67 +1,41 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* --- ADICIONE OU SUBSTITUA ESTAS REGRAS ABAIXO --- */
 
-body {
-    background: radial-gradient(circle at center, #1a3a5a 0%, #0d1b2a 100%);
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    justify-content: center; align-items: center;
-    min-height: 100vh;
+.btn-mode, .btn-main, .drop-zone {
+    position: relative;
+    z-index: 5; /* Garante que fiquem acima de qualquer fundo */
+    cursor: pointer !important;
+    transition: transform 0.2s, background 0.3s;
 }
 
-.container { width: 100%; max-width: 600px; text-align: center; padding: 20px; }
-
-.logo { font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
-.logo span { background: #00a8ff; padding: 2px 10px; border-radius: 8px; margin-left: 10px; font-size: 1.5rem; vertical-align: middle; }
-
-.card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 30px; padding: 50px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+.btn-main:hover {
+    transform: translateY(-2px);
+    background: #0095e0;
 }
 
-.mode-selector { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-.btn-mode {
-    background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.3s;
-}
-.btn-mode.active { background: #fff; color: #000; }
-
-.drop-zone {
-    border: 2px dashed rgba(255, 255, 255, 0.2);
-    border-radius: 20px; padding: 60px 20px; margin-bottom: 30px; cursor: pointer;
+.btn-main:active {
+    transform: translateY(0);
 }
 
-.ad-timer-slot {
-    background: rgba(0,0,0,0.4); border-radius: 15px;
-    height: 100px; margin-top: 15px; display: flex;
-    justify-content: center; align-items: center; color: rgba(255,255,255,0.2);
-    border: 1px dashed #00a8ff;
+.btn-mode:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.btn-main {
-    background: #00a8ff; color: white; border: none;
-    width: 100%; padding: 20px; border-radius: 15px;
-    font-weight: 700; font-size: 1.1rem; cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0, 168, 255, 0.4);
+/* Evita que a barra de progresso bloqueie cliques quando sumir */
+.progress-container { 
+    display: none; 
+    background: rgba(255,255,255,0.1); 
+    height: 8px; 
+    border-radius: 4px; 
+    margin-bottom: 20px; 
+    overflow: hidden;
+    pointer-events: none; /* O clique "atravessa" ela se ela estiver na frente */
 }
 
-.monetization-box { margin-top: 20px; }
-.ad-card {
-    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px; padding: 20px; display: flex;
-    justify-content: space-between; align-items: center; text-align: left;
-}
-.ad-content h4 { font-size: 0.9rem; color: #00a8ff; margin-bottom: 5px; }
-.ad-content p { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
-
-.ad-slot-wrapper {
-    width: 180px; height: 50px; background: rgba(0,0,0,0.3);
-    border-radius: 8px; display: flex; justify-content: center; align-items: center;
-}
-
-.progress-container { display: none; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
 .progress-bar { background: #00a8ff; width: 0%; height: 100%; transition: 0.3s; }
 
-footer { margin-top: 20px; font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+/* Ajuste para mobile para não quebrar o clique */
+@media (max-width: 480px) {
+    .card { padding: 20px; }
+    .ad-card { flex-direction: column; text-align: center; gap: 15px; }
+    .ad-slot-wrapper { width: 100%; }
+}
