@@ -4,90 +4,74 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8833464588728605" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">VitorConvert | Converter PDF para Word e Imagem para PDF Grátis</title>
+    <title id="page-title">VitorConvert | PDF & Image Converter</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Estilo para os botões de idioma */
-        .lang-switcher {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-bottom: 15px;
+        :root {
+            --primary-color: #00d2ff;
+            --bg-color: #060b13;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-color: #ffffff;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top, #0d1b2a 0%, #000000 100%);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Botões de Idioma no Topo Direito */
+        .lang-switcher {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            display: flex;
+            gap: 8px;
+        }
+
         .lang-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 5px 12px;
+            color: #ccc;
+            padding: 4px 12px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
             transition: 0.3s;
         }
-        .lang-btn:hover {
-            background: #00d2ff;
+
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--primary-color);
             color: #000;
+            border-color: var(--primary-color);
         }
-    </style>
-</head>
-<body>
 
-    <div class="container">
-        <div class="lang-switcher">
-            <button class="lang-btn" onclick="changeLanguage('pt')">PT</button>
-            <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-            <button class="lang-btn" onclick="changeLanguage('es')">ES</button>
-        </div>
+        /* Logo e Header */
+        header { margin-bottom: 30px; }
+        .logo { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+        .logo span { background: var(--primary-color); color: #000; padding: 2px 10px; border-radius: 6px; margin-left: 5px; }
+        header p { opacity: 0.7; font-size: 0.9rem; }
 
-        <header>
-            <div class="logo">Vitor<span>Convert</span></div>
-            <p data-i18n="header-p">O jeito mais rápido de transformar seus documentos com segurança.</p>
-        </header>
-
-        <main class="card" id="mainCard">
-            <div class="mode-selector">
-                <button class="btn-mode active" id="btnPdfToWord" data-i18n="mode-pdf">PDF para Word</button>
-                <button class="btn-mode" id="btnImgToPdf" data-i18n="mode-img">Imagem para PDF</button>
-            </div>
-
-            <div class="drop-zone" id="dropZone">
-                <h3 id="mainText" data-i18n="drop-h3">Selecione o arquivo ou arraste aqui</h3>
-                <p id="subText" data-i18n="drop-p">Arquivos suportados: .pdf</p>
-            </div>
-            
-            <div id="waitSection" style="display: none; margin-bottom: 20px;">
-                <h4 style="color: #00d2ff;" data-i18n="wait-h4">Seu arquivo está sendo processado!</h4>
-                <p><span data-i18n="wait-p1">O download iniciará em</span> <span id="timer">5</span> <span data-i18n="wait-p2">segundos...</span></p>
-            </div>
-
-            <div class="progress-container" id="progressWrap" style="display: none;">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-
-            <input type="file" id="fileInput" hidden accept=".pdf">
-            <button class="btn-main" id="convertBtn" data-i18n="btn-main">Escolher Arquivo</button>
-        </main>
-
-        <section class="monetization-box">
-            <div class="ad-card">
-                <div class="ad-info">
-                    <h4 data-i18n="ad-h4">Publicidade</h4>
-                    <p><span data-i18n="ad-p">Ajude a manter o</span> <span>VitorConvert</span>.</p>
-                </div>
-                <div class="ad-slot">
-                    <span data-i18n="ad-span">Anúncio Disponível</span>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <p>© 2026 VITORCONVERT • <span data-i18n="footer-span">PROCESSAMENTO LOCAL SEGURO</span></p>
-        </footer>
-    </div>
-
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-    <script src="js/script.js"></script>
-</body>
-</html>
+        /* Card Principal */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow
