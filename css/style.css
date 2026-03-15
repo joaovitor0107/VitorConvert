@@ -1,88 +1,85 @@
-/* Reset e Base */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    /* Fundo azul profundo com degradê radial para dar profundidade */
-    background: radial-gradient(circle at top, #0d1e31 0%, #061424 100%); 
+    background: radial-gradient(circle at top, #0d1e31 0%, #061424 100%);
     color: #fff;
     font-family: 'Inter', sans-serif;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
 }
 
-.container {
-    width: 100%;
-    max-width: 550px;
+.container { 
+    width: 100%; 
+    max-width: 500px; 
     position: relative;
+    z-index: 10;
 }
 
-/* --- SELETOR DE IDIOMAS --- */
 .lang-switcher {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-bottom: 25px; /* Espaço entre idiomas e o logo */
+    margin-bottom: 20px;
 }
 
 .lang-btn {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #b0b0b0;
-    padding: 6px 16px;
+    color: #fff;
+    padding: 8px 16px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.75rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    transition: 0.3s;
 }
 
-.lang-btn:hover, .lang-btn.active {
-    background: #00d2ff;
-    color: #061424;
-    border-color: #00d2ff;
-}
+.lang-btn.active { background: #00d2ff; color: #000; border-color: #00d2ff; font-weight: bold; }
 
-/* --- HEADER / LOGO --- */
-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
+header { text-align: center; margin-bottom: 30px; }
+.logo { font-size: 2.5rem; font-weight: 800; display: flex; justify-content: center; align-items: center; }
+.logo span { background: #00d2ff; color: #061424; padding: 2px 10px; border-radius: 8px; margin-left: 8px; }
 
-.logo {
-    font-size: 2.8rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* O "Convert" dentro do retângulo azul */
-.logo span {
-    background: #00d2ff;
-    color: #061424;
-    padding: 2px 10px;
-    border-radius: 8px;
-    margin-left: 8px;
-    font-size: 2.2rem;
-}
-
-header p {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-/* --- CARD CENTRAL --- */
 .card {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 28px;
-    padding: 40px;
-    backdrop-filter: blur(12px); /* Efeito
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.mode-selector { display: flex; gap: 10px; margin-bottom: 25px; }
+.btn-mode {
+    flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+    color: #fff; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.2s;
+}
+.btn-mode.active { background: #00d2ff22; border-color: #00d2ff; color: #00d2ff; }
+
+.drop-zone {
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.drop-zone:hover { border-color: #00d2ff; background: rgba(0, 210, 255, 0.05); }
+
+.btn-main {
+    background: #00d2ff;
+    color: #061424;
+    border: none;
+    width: 100%;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3); }
+
+footer { margin-top: 30px; text-align: center; font-size: 0.7rem; opacity: 0.5; }
