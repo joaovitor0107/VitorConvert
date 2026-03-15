@@ -3,6 +3,9 @@ const fileInput = document.getElementById('fileInput');
 const convertBtn = document.getElementById('convertBtn');
 const dropZone = document.getElementById('dropZone');
 
+// Carrega o anúncio inicial do rodapé
+(adsbygoogle = window.adsbygoogle || []).push({});
+
 document.getElementById('btnPdfToWord').onclick = (e) => switchMode('pdfToWord', e.currentTarget);
 document.getElementById('btnImgToPdf').onclick = (e) => switchMode('imgToPdf', e.currentTarget);
 
@@ -50,7 +53,6 @@ convertBtn.onclick = async () => {
             };
             reader.readAsArrayBuffer(file);
         } else {
-            // PDF para Word (Simulado)
             fileData = new Blob(["Conteúdo extraído via VitorConvert"], {type: "application/msword"});
             fileName = file.name.replace('.pdf', '.docx');
             fileType = 'application/msword';
@@ -68,12 +70,8 @@ function startWaitSequence(data, name, type) {
     document.getElementById('waitSection').style.display = "block";
     convertBtn.style.display = "none";
 
-    // GATILHO PARA CARREGAR O ANÚNCIO ASSIM QUE A SEÇÃO APARECER
-    try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-        console.log("Ads ainda não carregados");
-    }
+    // Carrega o anúncio da tela de espera
+    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
 
     let timeLeft = 5;
     const timerElem = document.getElementById('timer');
