@@ -1,4 +1,3 @@
-let currentMode = 'pdf';
 let selectedFile = null;
 let isWaiting = false;
 
@@ -7,7 +6,7 @@ function triggerInput() {
     if (!selectedFile) {
         document.getElementById('fileInput').click();
     } else {
-        startCounter();
+        startAdCounter();
     }
 }
 
@@ -15,61 +14,58 @@ function handleFile(file) {
     if (!file) return;
     selectedFile = file;
     document.getElementById('mainText').innerText = "Arquivo: " + file.name;
-    document.getElementById('mainText').style.color = "#00d2ff";
     document.getElementById('actionBtn').innerText = "Converter Agora";
 }
 
-function startCounter() {
+function startAdCounter() {
     isWaiting = true;
-    let count = 5;
+    let seconds = 5;
     const btn = document.getElementById('actionBtn');
     
+    // Bloqueia o botão durante a "propaganda"
+    btn.disabled = true;
+
     const timer = setInterval(() => {
-        btn.innerText = `Aguarde ${count}s...`;
-        btn.style.background = "#222";
-        btn.style.color = "#fff";
-        count--;
-        if (count < 0) {
+        btn.innerText = `Processando em ${seconds}s...`;
+        seconds--;
+
+        if (seconds < 0) {
             clearInterval(timer);
-            btn.innerText = "Convertendo...";
-            btn.style.background = "#00d2ff";
-            btn.style.color = "#061424";
-            if (currentMode === 'img') processImg();
-            else { alert("PDF para Word indisponível no momento."); resetBtn(); }
+            btn.innerText = "Baixando...";
+            btn.disabled = false;
+            processAndDownload();
         }
     }, 1000);
 }
 
-function resetBtn() {
-    isWaiting = false;
-    document.getElementById('actionBtn').innerText = "Converter Agora";
-}
-
-async function processImg() {
+async function processAndDownload() {
     try {
         const { PDFDocument } = PDFLib;
         const pdfDoc = await PDFDocument.create();
-        const imgBytes = await selectedFile.arrayBuffer();
-        const image = selectedFile.type.includes("png") ? await pdfDoc.embedPng(imgBytes) : await pdfDoc.embedJpg(imgBytes);
+        const bytes = await selectedFile.arrayBuffer();
+        
+        let image;
+        if (selectedFile.type.includes("png")) {
+            image = await pdfDoc.embedPng(bytes);
+        } else {
+            image = await pdfDoc.embedJpg(bytes);
+        }
+
         const page = pdfDoc.addPage([image.width, image.height]);
         page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+
         const pdfBytes = await pdfDoc.save();
         const link = document.createElement('a');
         link.href = URL.createObjectURL(new Blob([pdfBytes], { type: "application/pdf" }));
         link.download = "vitorconvert.pdf";
         link.click();
-    } catch (e) { alert("Erro ao converter."); }
-    resetBtn();
+    } catch (e) {
+        alert("Erro na conversão.");
+    }
+    resetState();
 }
 
-function switchMode(mode) {
-    if (isWaiting) return;
-    currentMode = mode;
-    selectedFile = null;
-    document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active'));
-    document.getElementById('mode-' + mode).classList.add('active');
-    document.getElementById('subText').innerText = mode === 'pdf' ? "Arquivos suportados: .pdf" : "Arquivos suportados: .jpg, .png";
-    document.getElementById('mainText').innerText = "Selecione o arquivo ou arraste aqui";
-    document.getElementById('mainText').style.color = "#fff";
-    document.getElementById('actionBtn').innerText = "Escolher Arquivo";
+function resetState() {
+    isWaiting = false;
+    document.getElementById('actionBtn').innerText = "Converter Agora";
 }
