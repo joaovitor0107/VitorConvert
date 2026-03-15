@@ -14,14 +14,18 @@ window.onload = () => {
         btn.classList.add('active');
         fileInput.accept = mode === 'pdfToWord' ? '.pdf' : 'image/jpeg, image/png';
         document.getElementById('subText').innerText = "Arquivos suportados: " + (mode === 'pdfToWord' ? ".pdf" : ".jpg, .png");
-        
-        // Reseta o estado do botão ao trocar de modo
         convertBtn.innerText = "Escolher Arquivo";
-        fileInput.value = ""; 
     }
 
-    // Clique na DropZone abre o seletor
+    // Clique abre seletor
     dropZone.onclick = () => fileInput.click();
+    convertBtn.onclick = () => {
+        if (!fileInput.files[0]) {
+            fileInput.click();
+        } else {
+            iniciarProcessamento();
+        }
+    };
 
     fileInput.onchange = function() {
         if (this.files[0]) {
@@ -31,54 +35,31 @@ window.onload = () => {
         }
     };
 
-    convertBtn.onclick = async () => {
+    async function iniciarProcessamento() {
         const file = fileInput.files[0];
-        
-        // Se não tem arquivo, abre a seleção
-        if (!file) { 
-            fileInput.click(); 
-            return; 
-        }
-
         convertBtn.disabled = true;
         convertBtn.innerText = "Processando...";
         document.getElementById('progressWrap').style.display = "block";
 
         try {
             if (currentMode === 'imgToPdf') {
-                // Conversão Real de Imagem para PDF
                 const arrayBuffer = await file.arrayBuffer();
                 const pdfDoc = await PDFLib.PDFDocument.create();
-                
-                let image;
-                if (file.type === 'image/png') {
-                    image = await pdfDoc.embedPng(arrayBuffer);
-                } else {
-                    image = await pdfDoc.embedJpg(arrayBuffer);
-                }
-
+                let image = file.type === 'image/png' ? await pdfDoc.embedPng(arrayBuffer) : await pdfDoc.embedJpg(arrayBuffer);
                 const page = pdfDoc.addPage([image.width, image.height]);
                 page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
-                
                 const pdfBytes = await pdfDoc.save();
-                const fileName = file.name.split('.')[0] + '.pdf';
-                
-                startWaitSequence(pdfBytes, fileName, 'application/pdf');
-
+                startWaitSequence(pdfBytes, file.name.split('.')[0] + '.pdf', 'application/pdf');
             } else {
-                // PDF para Word (Simulação por enquanto)
-                const fileData = new Blob(["Conteúdo extraído via VitorConvert"], {type: "application/msword"});
-                const fileName = file.name.replace('.pdf', '.docx');
-                
-                setTimeout(() => startWaitSequence(fileData, fileName, 'application/msword'), 1500);
+                // Simulação PDF para Word
+                const dummyData = new Blob(["Conteúdo extraído via VitorConvert"], {type: "application/msword"});
+                setTimeout(() => startWaitSequence(dummyData, file.name.replace('.pdf', '.docx'), 'application/msword'), 1500);
             }
         } catch (err) {
-            console.error(err);
-            alert("Erro ao processar: " + err.message);
-            convertBtn.disabled = false;
-            convertBtn.innerText = "Tentar Novamente";
+            alert("Erro: " + err.message);
+            location.reload();
         }
-    };
+    }
 
     function startWaitSequence(data, name, type) {
         document.getElementById('dropZone').style.display = "none";
@@ -87,11 +68,9 @@ window.onload = () => {
         convertBtn.style.display = "none";
 
         let timeLeft = 5;
-        const timerElem = document.getElementById('timer');
-
         const countdown = setInterval(() => {
             timeLeft--;
-            timerElem.innerText = timeLeft;
+            document.getElementById('timer').innerText = timeLeft;
             if (timeLeft <= 0) {
                 clearInterval(countdown);
                 download(data, name, type);
@@ -99,4 +78,15 @@ window.onload = () => {
         }, 1000);
     }
 
-    function download(data
+    function download(data, name, type) {
+        const blob = data instanceof Blob ? data : new Blob([data], {type: type});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => location.reload(), 1500);
+    }
+};
