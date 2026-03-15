@@ -11,96 +11,13 @@ body {
     min-height: 100vh;
 }
 
-.container { width: 100%; max-width: 600px; text-align: center; padding: 20px; }
-
-/* Logo conforme a imagem 2 */
-.logo { font-size: 3.5rem; font-weight: 800; margin-bottom: 5px; color: #fff; }
-.logo span { 
-    background: #00d2ff; /* Ciano vibrante */
-    padding: 2px 12px; 
-    border-radius: 10px; 
-    margin-left: 5px; 
-    font-size: 1.8rem; 
-    color: #061424; /* Texto escuro dentro do destaque */
-}
-
-header p { color: rgba(255, 255, 255, 0.8); margin-bottom: 25px; font-size: 0.95rem; }
-
-.card {
-    /* Efeito de vidro mais escuro */
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 30px; 
-    padding: 40px;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-}
-
-.mode-selector { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-
-.btn-mode {
-    background: transparent; 
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff; 
-    padding: 12px 25px; 
-    border-radius: 12px; 
-    cursor: pointer; 
-    font-weight: 600; 
-    transition: 0.3s;
-}
-
-/* Botão ativo com borda branca */
-.btn-mode.active { background: #fff; color: #061424; border-color: #fff; }
-
-.drop-zone {
-    border: 2px dashed rgba(255, 255, 255, 0.15);
-    border-radius: 20px; 
-    padding: 50px 20px; 
-    margin-bottom: 30px; 
-    background: rgba(0, 0, 0, 0.15);
-}
-
-.drop-zone h3 { font-size: 1.1rem; margin-bottom: 8px; }
-.drop-zone p { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
-
-/* Botão principal ciano */
-.btn-main {
-    background: #00d2ff; 
-    color: #061424; 
-    border: none;
-    width: 100%; 
-    padding: 18px; 
-    border-radius: 15px;
-    font-weight: 700; 
-    font-size: 1rem; 
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn-main:hover { filter: brightness(1.1); transform: translateY(-1px); }
-
-/* Seção de anúncios ajustada para o layout da imagem */
-.monetization-box { margin-top: 40px; }
-.ad-card {
-    background: rgba(255, 255, 255, 0.02); 
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 15px; 
-    padding: 15px 25px; 
+/* --- SELETOR DE IDIOMAS (Adicionado) --- */
+.lang-switcher {
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    text-align: left;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
-.ad-info h4 { font-size: 0.85rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 1px; }
-.ad-info p { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
-
-.ad-slot { 
-    background: #112233; 
-    padding: 10px 20px;
-    border-radius: 8px; 
-    font-size: 0.8rem; 
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-footer { margin-top: 40px; font-size: 0.7rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; }
+.lang-btn {
+    background: rgba(255, 255, 255,
